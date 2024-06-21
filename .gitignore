@@ -100,7 +100,7 @@ dist
 
 # FuseBox cache
 .fusebox/
-
+mongo.js
 # DynamoDB Local files
 .dynamodb/
 

@@ -13,10 +13,30 @@ const shortidgenerateController=async (req,res)=>{
          redirect:ur.url,
          watchhistory:[]
      });
-     return res.status(200).json({id:shortId})
+     return res.render("home",{
+      id:shortId
+     })
+    //  return res.status(200).json({id:shortId})
  
    
+
     }
+    const redirectcontroller=async (req,res)=>{
+      const shortId=req.params.shortid;
+      console.log(shortId);
+      const entry=await Uri.findOneAndUpdate({
+          shortid:shortId,
+      },{
+          $push:{
+             watchhistory:{
+                  timestamps:Date.now()
+              }
+          }
+      }
+  )
+      // console.log(entry);
+      return res.redirect(entry.redirect)
+  }
     //  const redirecturlcontroller=async (req,res)=>{
     //     const url=req.param.shortId;
     //     const uri=await Uri.findOneAndUpdate({url},{
@@ -39,4 +59,5 @@ const shortidgenerateController=async (req,res)=>{
 export {shortidgenerateController,
     handleanlitics
     // redirecturlcontroller
+    ,redirectcontroller
 };
