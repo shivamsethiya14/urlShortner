@@ -16,7 +16,11 @@ const uriSchema=new Schema({
                 
             }
         }
-    ]
+    ],
+    createdBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }
 },{timestamps:true});
 
 export  const  Uri=mongoose.model("Uri",uriSchema)

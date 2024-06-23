@@ -6,7 +6,13 @@ import path from "path"
 import { Uri } from "./src/model/url.model.js";
 import staticRoute from "./src/route/staticRouter.route.js"
 import { url } from "inspector";
+import cookieParser from "cookie-parser";
+import userRoute from "./src/route/userlogin.route.js"
+import { redirectcontroller } from "./src/controller/uri.controler.js";
+
+import { checkAuth, restrictloginuser } from "./src/middleware/auth.js";
 const app=express();
+app.use(cookieParser())
 app.set('view engine','ejs')
 const p=app.set('views',path.resolve("D:/urlShortner/src/views"))
 
@@ -27,7 +33,10 @@ app.listen(process.env.PORT,()=>{
 app.use(express.urlencoded({extended:false,limit:"16kb"}))
 app.use(express.json())
 // app.use(express.urlencoded())
-app.use("/url",Route)
-app.use("/",staticRoute)
+app.use("/url",restrictloginuser,Route)
+app.use("/",checkAuth,staticRoute)
+app.use("/user",userRoute)
+
+app.get("/url/:shortid",redirectcontroller);
 
 

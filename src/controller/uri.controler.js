@@ -11,7 +11,8 @@ const shortidgenerateController=async (req,res)=>{
      await Uri.create({
          shortid:shortId,
          redirect:ur.url,
-         watchhistory:[]
+         watchhistory:[],
+         createdBy:req.user._id
      });
      return res.render("home",{
       id:shortId

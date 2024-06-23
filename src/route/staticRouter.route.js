@@ -5,9 +5,16 @@ const Route =Router()
 //     return res.render('home')
 // })
 Route.get('/', async(req,res)=>{
-    const allUrls= await Uri.find({})
-     return res.render('home',{
+   // if(!req.user) return res.redirect('/login')
+    const allUrls= await Uri.find({createdBy:req.user._id})
+     return res.render("home",{
         urls:allUrls
      })
+})
+Route.get("/signup",(req,res)=>{
+   res.render("signup")
+})
+Route.get("/login",(req,res)=>{
+   res.render("login")
 })
 export default Route
