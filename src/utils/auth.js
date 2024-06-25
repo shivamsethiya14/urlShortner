@@ -1,9 +1,21 @@
+import jwt from "jsonwebtoken"
 const sessionidusermap=new Map()
-function setuser(id,user){
-    sessionidusermap.set(id,user)
+function setuser(user){
+  
+  return jwt.sign({
+    _id: user._id,
+    email:user.email
+  },process.env.SECRETKEY)
+    // sessionidusermap.set(id,user)
 }
-function getUser(id){
-    return sessionidusermap.get(id);
+function getUser(token){
+  if(!token) return  null;
+  try {
+    return jwt.verify(token,process.env.SECRETKEY)
+  } catch (error) {
+    return null
+  }
+  
 }
 export
   {  setuser,

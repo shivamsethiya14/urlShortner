@@ -5,7 +5,7 @@ const Route =Router()
 //     return res.render('home')
 // })
 Route.get('/', async(req,res)=>{
-   // if(!req.user) return res.redirect('/login')
+   if(!req.user) return res.redirect('/login')
     const allUrls= await Uri.find({createdBy:req.user._id})
      return res.render("home",{
         urls:allUrls

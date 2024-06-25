@@ -22,10 +22,10 @@ const loginController=async (req,res)=>{
         return res.render("login",{
             error:"email or password are incorect"
         })
-        const sessionid=uuidv4()
-        const userp=setuser(sessionid,user)
-        console.log(userp);
-        res.cookie("uid",sessionid)
-        return res.redirect("/")
+
+        const token=setuser(user)
+        // console.log(userp);
+        // res.cookie("uid",token)
+        return res.json({token})
 }
 export {singnupController,loginController}
