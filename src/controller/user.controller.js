@@ -25,7 +25,7 @@ const loginController=async (req,res)=>{
 
         const token=setuser(user)
         // console.log(userp);
-        // res.cookie("uid",token)
-        return res.json({token})
+        res.cookie("token",token)
+        return res.redirect("/")
 }
 export {singnupController,loginController}

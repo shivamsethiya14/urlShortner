@@ -4,7 +4,8 @@ function setuser(user){
   
   return jwt.sign({
     _id: user._id,
-    email:user.email
+    email:user.email,
+    role:user.role
   },process.env.SECRETKEY)
     // sessionidusermap.set(id,user)
 }
